@@ -1,6 +1,6 @@
-#pragma config(Sensor, in1,    L,             sensorNone)
-#pragma config(Sensor, in3,    M,             sensorNone)
-#pragma config(Sensor, in4,    R,             sensorNone)
+#pragma config(Sensor, in1,    L,              sensorLineFollower)
+#pragma config(Sensor, in3,    M,              sensorLineFollower)
+#pragma config(Sensor, in4,    R,              sensorLineFollower)
 #pragma config(Sensor, dgtl1,  PWD,            sensorTouch)
 #pragma config(Sensor, dgtl2,  fingr,          sensorTouch)
 #pragma config(Sensor, dgtl3,  fingr2,         sensorTouch)
@@ -12,7 +12,9 @@ int pwd = 0;
 int botton = 0;
 int boredom = 0;
 int Num = 0;
-
+int SENS1 = 0;
+int SENS2 = 0;
+int SENS3 = 0;
 
 
 void Face() {
@@ -60,8 +62,8 @@ void Touch() {
 void HardC() {
 	if(Num == 0){
 
-		motor(LM) = 100
-		motor(RM) = 100
+		motor(LM) = 100;
+		motor(RM) = 100;
 	}
 	if( Num == 1) {
 		motor(LM) = 0; motor(RM) = 0;
@@ -81,7 +83,9 @@ void GameOn() {
 }
 
 void ColorSense() {
-
+SENS1 = SensorValue(L);
+SENS2 = SensorValue(M);
+SENS3 = SensorValue(R);
 
 
 
@@ -165,11 +169,11 @@ task main()
 		Touch();
 		while(pwd == 0){
 			//Touch(); false;
-			HardC(); false;
+			//HardC(); false;
 			Face(); false;
 			PowerOff();
 			options(); false;
-			// ColorSense();
+			ColorSense();
 			boredom++; false;
 		}
 		GameOver();false;
